@@ -15,8 +15,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "identifiable-ipaddress"
   gem.homepage = "http://github.com/pvdb/identifiable-ipaddress"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Library and executable to identify IP addresses}
+  gem.description = %Q{Using a YAML configuration file, IP addresses can be grouped and labeled, and subsequently identified}
   gem.email = "pvandenberk@mac.com"
   gem.authors = ["Peter Vandenberk"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
