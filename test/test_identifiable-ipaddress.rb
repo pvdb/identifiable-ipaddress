@@ -1,7 +1,21 @@
 require 'helper'
 
 class TestIdentifiableIpaddress < Test::Unit::TestCase
-  should "probably rename this file and start testing for real" do
-    flunk "hey buddy, you should probably rename this file and start testing for real"
+
+  context "IPAddress instances" do
+
+    setup do
+      @ipaddress = IPAddress('127.0.0.1')
+    end
+
+    should "respond to identifiable?" do
+      assert @ipaddress.respond_to? :identifiable?
+    end
+
+    should "respond to identify" do
+      assert @ipaddress.respond_to? :identify
+    end
+
   end
+
 end
