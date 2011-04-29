@@ -1,0 +1,8 @@
+Autotest.add_hook :initialize do |autotest|
+  %w{ .document test/helper.rb identifiable-ipaddress.gemspec }.each do |exception|
+    autotest.add_exception(exception)
+  end
+  false
+end
+
+# vim:syntax=ruby
