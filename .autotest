@@ -2,6 +2,9 @@ Autotest.add_hook :initialize do |autotest|
   %w{ .document test/helper.rb identifiable-ipaddress.gemspec }.each do |exception|
     autotest.add_exception(exception)
   end
+  %w(TestIdentifiableIPAddress).each do |klass|
+    autotest.extra_class_map[klass] = "test/test_identifiable_ipaddress.rb"
+  end
   false
 end
 

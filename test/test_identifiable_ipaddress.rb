@@ -1,6 +1,6 @@
 require 'helper'
 
-class TestIdentifiableIpaddress < Test::Unit::TestCase
+class TestIdentifiableIPAddress < Test::Unit::TestCase
 
   context "IPAddress instances" do
 

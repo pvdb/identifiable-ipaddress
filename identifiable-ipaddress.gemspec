@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Peter Vandenberk"]
-  s.date = %q{2011-04-29}
+  s.date = %q{2011-04-30}
   s.description = %q{Using a YAML configuration file, IP addresses can be grouped and labeled, and subsequently identified}
   s.email = %q{pvandenberk@mac.com}
   s.extra_rdoc_files = [
@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    ".autotest",
     ".document",
     "Gemfile",
     "Gemfile.lock",
@@ -25,10 +26,10 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "identifiable-ipaddress.gemspec",
-    "lib/identifiable-ipaddress.rb",
+    "lib/identifiable_ipaddress.rb",
     "lib/ipaddress/identifiable.rb",
     "test/helper.rb",
-    "test/test_identifiable-ipaddress.rb"
+    "test/test_identifiable_ipaddress.rb"
   ]
   s.homepage = %q{http://github.com/pvdb/identifiable-ipaddress}
   s.licenses = ["MIT"]
@@ -37,7 +38,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Library and executable to identify IP addresses}
   s.test_files = [
     "test/helper.rb",
-    "test/test_identifiable-ipaddress.rb"
+    "test/test_identifiable_ipaddress.rb"
   ]
 
   if s.respond_to? :specification_version then
