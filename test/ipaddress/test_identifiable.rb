@@ -8,12 +8,16 @@ class TestIdentifiable < Test::Unit::TestCase
       @ipaddress = IPAddress('127.0.0.1')
     end
 
-    should "respond to identifiable?" do
-      assert @ipaddress.respond_to? :identifiable?
+    should "respond to identity?" do
+      assert @ipaddress.respond_to? "identity?"
     end
 
-    should "respond to identify" do
-      assert @ipaddress.respond_to? :identify
+    should "respond to identity" do
+      assert @ipaddress.respond_to? :identity
+    end
+
+    should "respond to identity=" do
+      assert @ipaddress.respond_to? "identity="
     end
 
   end
@@ -25,7 +29,10 @@ class TestIdentifiable < Test::Unit::TestCase
     end
 
     should "return correct identity" do
-      assert_equal "localhost", @ipaddress.identify
+      assert !@ipaddress.identity?
+      @ipaddress.identity = 'localhost'
+      assert_equal 'localhost', @ipaddress.identity
+      assert @ipaddress.identity?
     end
 
   end

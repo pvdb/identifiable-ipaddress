@@ -8,12 +8,16 @@ module Identities
 
     class << base
 
-      def identifiable?
-        return false
+      def identity_for? ipaddress
+        !@@ipaddress_identities[ipaddress].nil?
       end
 
-      def identify
-        return nil
+      def get_identity ipaddress
+        @@ipaddress_identities[ipaddress]
+      end
+
+      def set_identity(ipaddress, identity)
+        @@ipaddress_identities[ipaddress] = identity
       end
 
     end

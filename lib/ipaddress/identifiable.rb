@@ -1,11 +1,15 @@
 module Identifiable
 
-  def identifiable?
-    return false
+  def identity?
+    IPAddress.identity_for? self
   end
 
-  def identify
-    return nil
+  def identity
+    IPAddress.get_identity self
+  end
+
+  def identity= identity
+    IPAddress.set_identity self, identity
   end
 
 end # module Identifiable
