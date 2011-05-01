@@ -23,7 +23,7 @@ module TestIpaddress
 
       should "record the identity of an IP address" do
 
-        ipaddress = '127.0.0.1' ; identity = 'localhost'
+        ipaddress = IPAddress('127.0.0.1') ; identity = 'localhost'
 
         assert !IPAddress.identity_for?(ipaddress)
         IPAddress.set_identity(ipaddress, identity)
