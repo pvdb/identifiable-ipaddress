@@ -23,7 +23,7 @@ module TestIpaddress
 
     end
 
-    context "identifiable IPAddress instances" do
+    context "identifiable IP addresses" do
 
       setup do
         @ipaddress = IPAddress('127.0.0.1')
@@ -32,8 +32,8 @@ module TestIpaddress
       should "return correct identity" do
         assert !@ipaddress.identity?
         @ipaddress.identity = 'localhost'
-        assert_equal 'localhost', @ipaddress.identity
         assert @ipaddress.identity?
+        assert_equal 'localhost', @ipaddress.identity
       end
 
     end

@@ -19,9 +19,9 @@ module TestIpaddress
 
     end
 
-    context "IPAddress identities" do
+    context "IPAddress superclass" do
 
-      should "record an IPAddress's identity" do
+      should "record the identity of an IP address" do
 
         ipaddress = '127.0.0.1' ; identity = 'localhost'
 
