@@ -24,23 +24,39 @@ module TestIpaddress
 
     end
 
-    context "identifiable IP addresses" do
+    context "identifiable IP v4 addresses" do
 
       setup do
         IPAddress.reset_identities
-        @ipaddress = IPAddress('127.0.0.1') ; @identity = 'localhost'
+        @ipv4_address = IPAddress('127.0.0.1') ; @identity = 'localhost'
       end
 
       should "return correct identity" do
-        assert !@ipaddress.identity?
-        @ipaddress.identity = @identity
-        assert @ipaddress.identity?
-        assert_equal @identity, @ipaddress.identity
+        assert !@ipv4_address.identity?
+        @ipv4_address.identity = @identity
+        assert @ipv4_address.identity?
+        assert_equal @identity, @ipv4_address.identity
       end
 
     end
 
-    context "identifiable IP subnets" do
+    context "identifiable IP v6 addresses" do
+
+      setup do
+        IPAddress.reset_identities
+        @ipv6_address = IPAddress('::1') ; @identity = 'localhost'
+      end
+
+      should "return correct identity" do
+        assert !@ipv6_address.identity?
+        @ipv6_address.identity = @identity
+        assert @ipv6_address.identity?
+        assert_equal @identity, @ipv6_address.identity
+      end
+
+    end
+
+    context "identifiable IP v4 subnets" do
 
       setup do
         IPAddress.reset_identities

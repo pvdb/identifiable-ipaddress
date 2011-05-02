@@ -25,20 +25,37 @@ module TestIpaddress
         IPAddress.reset_identities
       end
 
-      should "record the identity of an IP address" do
+      should "record the identity of an IP v4 address" do
 
-        ipaddress = IPAddress('127.0.0.1') ; identity = 'localhost'
+        ipv4_ipaddress = IPAddress('127.0.0.1') ; identity = 'localhost'
 
-        assert !IPAddress.identity_for?(ipaddress)
-        IPAddress.set_identity(ipaddress, identity)
-        assert IPAddress.identity_for?(ipaddress)
-        assert_equal identity, IPAddress.get_identity(ipaddress)
+        assert ipv4_ipaddress.is_a? IPAddress::IPv4
+
+        assert !IPAddress.identity_for?(ipv4_ipaddress)
+        IPAddress.set_identity(ipv4_ipaddress, identity)
+        assert IPAddress.identity_for?(ipv4_ipaddress)
+        assert_equal identity, IPAddress.get_identity(ipv4_ipaddress)
 
       end
 
-      should "record the identity of subnet" do
+      should "record the identity of an IP v6 address" do
+
+        ipv6_ipaddress = IPAddress('::1') ; identity = 'localhost'
+
+        assert ipv6_ipaddress.is_a? IPAddress::IPv6
+
+        assert !IPAddress.identity_for?(ipv6_ipaddress)
+        IPAddress.set_identity(ipv6_ipaddress, identity)
+        assert IPAddress.identity_for?(ipv6_ipaddress)
+        assert_equal identity, IPAddress.get_identity(ipv6_ipaddress)
+
+      end
+
+      should "record the identity of IP v4 subnet" do
 
         subnet = IPAddress('127.0.0.1/24') ; identity = 'subnet'
+
+        assert subnet.is_a? IPAddress::IPv4
 
         assert subnet.none? { |ipaddress| IPAddress.identity_for?(ipaddress) }
         IPAddress.set_identity(subnet, identity)

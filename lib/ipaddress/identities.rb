@@ -22,8 +22,13 @@ module Identities
       end
 
       def set_identity(ipaddress, identity)
-        ipaddress.each do |single_ipaddress|
-          @@ipaddress_identities[single_ipaddress.address] = identity
+        case ipaddress
+        when IPAddress::IPv4
+          ipaddress.each do |single_ipaddress|
+            @@ipaddress_identities[single_ipaddress.address] = identity
+          end
+        when IPAddress::IPv6
+          @@ipaddress_identities[ipaddress.address] = identity
         end
       end
 
