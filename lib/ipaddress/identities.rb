@@ -8,16 +8,23 @@ module Identities
 
     class << base
 
+      def reset_identities
+        # for testing purposes only...
+        @@ipaddress_identities.clear
+      end
+
       def identity_for? ipaddress
-        !@@ipaddress_identities[ipaddress].nil?
+        !@@ipaddress_identities[ipaddress.address].nil?
       end
 
       def get_identity ipaddress
-        @@ipaddress_identities[ipaddress]
+        @@ipaddress_identities[ipaddress.address]
       end
 
       def set_identity(ipaddress, identity)
-        @@ipaddress_identities[ipaddress] = identity
+        ipaddress.each do |single_ipaddress|
+          @@ipaddress_identities[single_ipaddress.address] = identity
+        end
       end
 
     end

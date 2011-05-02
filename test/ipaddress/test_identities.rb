@@ -21,6 +21,10 @@ module TestIpaddress
 
     context "IPAddress superclass" do
 
+      setup do
+        IPAddress.reset_identities
+      end
+
       should "record the identity of an IP address" do
 
         ipaddress = IPAddress('127.0.0.1') ; identity = 'localhost'
@@ -29,6 +33,17 @@ module TestIpaddress
         IPAddress.set_identity(ipaddress, identity)
         assert IPAddress.identity_for?(ipaddress)
         assert_equal identity, IPAddress.get_identity(ipaddress)
+
+      end
+
+      should "record the identity of subnet" do
+
+        subnet = IPAddress('127.0.0.1/24') ; identity = 'subnet'
+
+        assert subnet.hosts.none? { |ipaddress| IPAddress.identity_for?(ipaddress) }
+        IPAddress.set_identity(subnet, identity)
+        assert subnet.hosts.all? { |ipaddress| IPAddress.identity_for?(ipaddress) }
+        assert subnet.hosts.all? { |ipaddress| identity == IPAddress.get_identity(ipaddress) }
 
       end
 

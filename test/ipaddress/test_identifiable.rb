@@ -6,6 +6,7 @@ module TestIpaddress
     context "IPAddress instances" do
 
       setup do
+        IPAddress.reset_identities
         @ipaddress = IPAddress('127.0.0.1')
       end
 
@@ -26,6 +27,7 @@ module TestIpaddress
     context "identifiable IP addresses" do
 
       setup do
+        IPAddress.reset_identities
         @ipaddress = IPAddress('127.0.0.1')
       end
 
@@ -34,6 +36,22 @@ module TestIpaddress
         @ipaddress.identity = 'localhost'
         assert @ipaddress.identity?
         assert_equal 'localhost', @ipaddress.identity
+      end
+
+    end
+
+    context "identifiable IP subnets" do
+
+      setup do
+        IPAddress.reset_identities
+        @subnet = IPAddress('127.0.0.1/24')
+      end
+
+      should "return correct identity" do
+        assert @subnet.hosts.none? { |ipaddress| ipaddress.identity? }
+        @subnet.identity = 'subnet'
+        assert @subnet.hosts.all? { |ipaddress| ipaddress.identity? }
+        assert @subnet.hosts.all? { |ipaddress| 'subnet' == ipaddress.identity }
       end
 
     end
