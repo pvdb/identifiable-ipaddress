@@ -40,10 +40,10 @@ module TestIpaddress
 
         subnet = IPAddress('127.0.0.1/24') ; identity = 'subnet'
 
-        assert subnet.hosts.none? { |ipaddress| IPAddress.identity_for?(ipaddress) }
+        assert subnet.none? { |ipaddress| IPAddress.identity_for?(ipaddress) }
         IPAddress.set_identity(subnet, identity)
-        assert subnet.hosts.all? { |ipaddress| IPAddress.identity_for?(ipaddress) }
-        assert subnet.hosts.all? { |ipaddress| identity == IPAddress.get_identity(ipaddress) }
+        assert subnet.all? { |ipaddress| IPAddress.identity_for?(ipaddress) }
+        assert subnet.all? { |ipaddress| identity == IPAddress.get_identity(ipaddress) }
 
       end
 

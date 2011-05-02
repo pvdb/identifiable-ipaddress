@@ -48,10 +48,10 @@ module TestIpaddress
       end
 
       should "return correct identity" do
-        assert @subnet.hosts.none? { |ipaddress| ipaddress.identity? }
+        assert @subnet.none? { |ipaddress| ipaddress.identity? }
         @subnet.identity = 'subnet'
-        assert @subnet.hosts.all? { |ipaddress| ipaddress.identity? }
-        assert @subnet.hosts.all? { |ipaddress| 'subnet' == ipaddress.identity }
+        assert @subnet.all? { |ipaddress| ipaddress.identity? }
+        assert @subnet.all? { |ipaddress| 'subnet' == ipaddress.identity }
       end
 
     end
