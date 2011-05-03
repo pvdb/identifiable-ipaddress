@@ -34,12 +34,20 @@ module Identities
         [ipaddress].flatten.each do |single_ipaddress|
           case (single_ipaddress = to_ipaddress(single_ipaddress))
           when IPAddress::IPv4
+            # single_ipaddress == single address or entire subnet
             single_ipaddress.each do |single_ipv4_address|
               @@ipaddress_identities[single_ipv4_address.address] = identity.to_s
             end
           when IPAddress::IPv6
+            # TODO IP v6 subnets: https://github.com/bluemonk/ipaddress/pull/15
             @@ipaddress_identities[ipaddress.address] = identity.to_s
           end
+        end
+      end
+
+      def set_identities(identity_hash)
+        identity_hash.each_pair do |identity, ipaddress|
+          set_identity(ipaddress, identity)
         end
       end
 
