@@ -66,5 +66,43 @@ module TestIpaddress
 
     end
 
+    context "IPAddress configuration" do
+
+      setup do
+        IPAddress.reset_identities
+      end
+
+      should "work with an IPAddress" do
+        ipv4_ipaddress = IPAddress('127.0.0.1')
+        IPAddress.set_identity(ipv4_ipaddress, 'localhost')
+        assert_equal 'localhost', IPAddress.get_identity(ipv4_ipaddress)
+        assert_equal 'localhost', IPAddress.get_identity('127.0.0.1')
+      end
+
+      should "work with Strings" do
+        ipv4_ipaddress = '127.0.0.1'
+        IPAddress.set_identity(ipv4_ipaddress, 'localhost')
+        assert_equal 'localhost', IPAddress.get_identity(ipv4_ipaddress)
+        assert_equal 'localhost', IPAddress.get_identity(IPAddress('127.0.0.1'))
+      end
+
+      should "work with Symbols" do
+        ipv4_ipaddress = '127.0.0.1'
+        IPAddress.set_identity(ipv4_ipaddress, :localhost)
+        assert_equal 'localhost', IPAddress.get_identity(ipv4_ipaddress)
+        assert_equal 'localhost', IPAddress.get_identity(IPAddress('127.0.0.1'))
+      end
+
+      should "work with Strings and Symbols" do
+        ipv4_subnet = '127.0.0.1/24'
+        IPAddress.set_identity(ipv4_subnet, :localhost)
+        assert_equal 'localhost', IPAddress.get_identity('127.0.0.1')
+        assert_equal 'localhost', IPAddress.get_identity(IPAddress('127.0.0.1'))
+        assert_equal 'localhost', IPAddress.get_identity('127.0.0.254')
+        assert_equal 'localhost', IPAddress.get_identity(IPAddress('127.0.0.254'))
+      end
+
+    end
+
   end # class TestIdentities
 end # module TestIpaddress

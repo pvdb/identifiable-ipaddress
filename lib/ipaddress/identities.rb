@@ -13,22 +13,31 @@ module Identities
         @@ipaddress_identities.clear
       end
 
+      def to_ipaddress(ipaddress)
+        # to keep things DRY...
+        unless ipaddress.is_a? IPAddress
+          IPAddress(ipaddress)
+        else
+          ipaddress
+        end
+      end
+
       def identity_for? ipaddress
-        !@@ipaddress_identities[ipaddress.address].nil?
+        !@@ipaddress_identities[to_ipaddress(ipaddress).address].nil?
       end
 
       def get_identity ipaddress
-        @@ipaddress_identities[ipaddress.address]
+        @@ipaddress_identities[to_ipaddress(ipaddress).address]
       end
 
       def set_identity(ipaddress, identity)
-        case ipaddress
+        case (ipaddress = to_ipaddress(ipaddress))
         when IPAddress::IPv4
           ipaddress.each do |single_ipaddress|
-            @@ipaddress_identities[single_ipaddress.address] = identity
+            @@ipaddress_identities[single_ipaddress.address] = identity.to_s
           end
         when IPAddress::IPv6
-          @@ipaddress_identities[ipaddress.address] = identity
+          @@ipaddress_identities[ipaddress.address] = identity.to_s
         end
       end
 
