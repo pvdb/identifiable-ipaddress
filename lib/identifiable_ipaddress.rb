@@ -1,3 +1,6 @@
+require 'yaml'
+require 'tempfile'
+
 require 'rubygems'
 require 'ipaddress'
 

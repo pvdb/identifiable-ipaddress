@@ -46,6 +46,9 @@ module Identities
       end
 
       def set_identities(identity_hash)
+        if identity_hash.kind_of?(File) || identity_hash.kind_of?(Tempfile)
+          identity_hash = YAML.load_file(identity_hash.path)
+        end
         identity_hash.each_pair do |identity, ipaddress|
           set_identity(ipaddress, identity)
         end
