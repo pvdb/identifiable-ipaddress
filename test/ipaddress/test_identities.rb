@@ -102,6 +102,13 @@ module TestIpaddress
         assert_equal 'localhost', IPAddress.get_identity(IPAddress('127.0.0.254'))
       end
 
+      should "work with Arrays" do
+        ipv4_addresses = [random_ipv4_address, random_ipv4_address]
+        IPAddress.set_identity(ipv4_addresses, :localhost)
+        assert_equal 'localhost', IPAddress.get_identity(ipv4_addresses.first)
+        assert_equal 'localhost', IPAddress.get_identity(ipv4_addresses.last)
+      end
+
     end
 
   end # class TestIdentities
