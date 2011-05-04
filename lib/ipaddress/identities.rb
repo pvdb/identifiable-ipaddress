@@ -23,7 +23,7 @@ module Identities
       end
 
       def identity_for? ipaddress
-        !@@ipaddress_identities[to_ipaddress(ipaddress).address].nil?
+        !get_identity(ipaddress).nil?
       end
 
       def get_identity ipaddress
