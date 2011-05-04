@@ -132,8 +132,6 @@ module TestIpaddress
         check_identities
       end
 
-      require 'tempfile'
-
       should "work with YAML files" do
         IPAddress.set_identities(@@identities_yaml)
         check_identities
