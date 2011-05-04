@@ -34,7 +34,7 @@ module Identities
         [ipaddress].flatten.each do |single_ipaddress|
           case (single_ipaddress = to_ipaddress(single_ipaddress))
           when IPAddress::IPv4
-            # single_ipaddress == single address or entire subnet
+            # single_ipaddress == single address or entire subnet, ie. CIDR
             single_ipaddress.each do |single_ipv4_address|
               @@ipaddress_identities[single_ipv4_address.address] = identity.to_s
             end
