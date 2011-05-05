@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+
+begin
+  require 'identifiable_ipaddress'
+rescue LoadError
+  require 'rubygems'
+  require 'identifiable_ipaddress'
+end
+
+exit IPLookup::Application.new(ARGV).run!
+
+# That's all, Folks!

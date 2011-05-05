@@ -1,4 +1,5 @@
 require 'yaml'
+require 'ostruct'
 require 'tempfile'
 
 require 'rubygems'
@@ -11,3 +12,5 @@ IPAddress.send :include, Identities
 
 IPAddress::IPv4.send :include, Identifiable
 IPAddress::IPv6.send :include, Identifiable
+
+require 'iplookup/application'
