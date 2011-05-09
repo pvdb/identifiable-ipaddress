@@ -13,14 +13,6 @@ module TestIpaddress
       :qux => IPAddress('192.168.0.0/24')
     }.freeze
 
-    @@identities_yaml = begin
-      tempfile = Tempfile.new('identities.yml')
-      tempfile.write(@@identities_hash.to_yaml)
-      tempfile.flush
-      tempfile.close
-      tempfile
-    end
-
     context "IPAddress class" do
 
       should "respond to identity_for?" do
@@ -129,11 +121,6 @@ module TestIpaddress
 
       should "work with Hashes" do
         IPAddress.set_identities(@@identities_hash)
-        check_identities
-      end
-
-      should "work with YAML files" do
-        IPAddress.set_identities(@@identities_yaml)
         check_identities
       end
 

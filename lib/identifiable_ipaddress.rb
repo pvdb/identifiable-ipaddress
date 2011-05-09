@@ -1,5 +1,6 @@
 require 'yaml'
 require 'ostruct'
+require 'optparse'
 require 'tempfile'
 
 require 'rubygems'
