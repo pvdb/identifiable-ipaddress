@@ -21,6 +21,10 @@ module Identities
           ipaddress
         end
       end
+      
+      def known_identity? identity
+        @@ipaddress_identities.values.include? identity
+      end
 
       def identity_for? ipaddress
         !get_identity(ipaddress).nil?

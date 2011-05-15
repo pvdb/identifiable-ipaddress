@@ -17,6 +17,10 @@ module TestIpaddress
         assert IPAddress.respond_to? :set_identity
       end
 
+      should "respond to known_identity?" do
+        assert IPAddress.respond_to? :known_identity?
+      end
+
     end
 
     context "IPAddress superclass" do
@@ -32,8 +36,13 @@ module TestIpaddress
         assert ipv4_ipaddress.is_a? IPAddress::IPv4
 
         assert !IPAddress.identity_for?(ipv4_ipaddress)
+        assert !IPAddress.known_identity?(identity)
+        
         IPAddress.set_identity(ipv4_ipaddress, identity)
+        
         assert IPAddress.identity_for?(ipv4_ipaddress)
+        assert IPAddress.known_identity?(identity)
+        
         assert_equal identity, IPAddress.get_identity(ipv4_ipaddress)
 
       end
@@ -45,8 +54,13 @@ module TestIpaddress
         assert ipv6_ipaddress.is_a? IPAddress::IPv6
 
         assert !IPAddress.identity_for?(ipv6_ipaddress)
+        assert !IPAddress.known_identity?(identity)
+        
         IPAddress.set_identity(ipv6_ipaddress, identity)
+        
         assert IPAddress.identity_for?(ipv6_ipaddress)
+        assert IPAddress.known_identity?(identity)
+        
         assert_equal identity, IPAddress.get_identity(ipv6_ipaddress)
 
       end
