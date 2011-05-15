@@ -21,11 +21,11 @@ module IPLookup
 
     def initialize(argv = [])
       @options = parse_options(argv, DEFAULT_OPTIONS)
+      IPAddress.set_identities(YAML.load_file @options.rc_file) if @options.rc_file
+      return self
     end
 
     def run!(stdin = $stdin, stdout = $stdout)
-
-      IPAddress.set_identities(YAML.load_file @options.rc_file) if @options.rc_file
 
       while line = stdin.gets do
         ip_address = line.chomp

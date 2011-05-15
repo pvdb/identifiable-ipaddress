@@ -69,7 +69,7 @@ module TestIplookup
           tempfile
         end
 
-        (application = IPLookup::Application.new(['-r', identities_yaml_file.path])).run!(StringIO.new(""))
+        application = IPLookup::Application.new(['-r', identities_yaml_file.path])
         assert_equal identities_yaml_file.path, application.options.rc_file
 
         assert_equal "first", IPAddress.get_identity(first_ipv4_address)

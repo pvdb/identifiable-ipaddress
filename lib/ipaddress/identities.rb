@@ -46,7 +46,7 @@ module Identities
       end
 
       def set_identities(identity_hash)
-        identity_hash.each_pair do |identity, ipaddress|
+        (identity_hash || {}).each_pair do |identity, ipaddress|
           set_identity(ipaddress, identity)
         end
       end
