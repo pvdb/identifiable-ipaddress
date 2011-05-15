@@ -13,12 +13,12 @@ module Identifiable
   end
   
   def respond_to?(symbol, include_private = false)
-    symbol.to_s[-1,1] == "?" || super
+    (symbol.to_s[-1,1] == "?" && IPAddress.known_identity?(symbol.to_s[0..-2])) || super
   end
   
   def method_missing(symbol, *args)
     # modeled after ActiveSupport::StringInquirer
-    if symbol.to_s[-1,1] == "?"
+    if symbol.to_s[-1,1] == "?" && IPAddress.known_identity?(symbol.to_s[0..-2])
       self.identity == symbol.to_s[0..-2]
     else
       super

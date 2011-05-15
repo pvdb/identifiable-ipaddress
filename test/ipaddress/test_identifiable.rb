@@ -38,17 +38,14 @@ module TestIpaddress
         assert_equal @identity, @ipv4_address.identity
       end
       
-      should "response to identity enquiry method" do
-        assert @ipv4_address.respond_to? :localhost?
-        assert @ipv4_address.respond_to? :remote_host?
-
-        assert !@ipv4_address.send(:localhost?)
-        assert !@ipv4_address.send(:remote_host?)
+      should "respond to identity enquiry methods" do
+        assert !@ipv4_address.respond_to?(:localhost?)
+        assert !@ipv4_address.respond_to?(:remote_host?)
         
         @ipv4_address.identity = @identity
         
         assert @ipv4_address.send(:localhost?)
-        assert !@ipv4_address.send(:remote_host?)
+        assert !@ipv4_address.respond_to?(:remote_host?)
       end
 
     end
@@ -65,6 +62,16 @@ module TestIpaddress
         @ipv6_address.identity = @identity
         assert @ipv6_address.identity?
         assert_equal @identity, @ipv6_address.identity
+      end
+      
+      should "respond to identity enquiry methods" do
+        assert !@ipv6_address.respond_to?(:localhost?)
+        assert !@ipv6_address.respond_to?(:remote_host?)
+        
+        @ipv6_address.identity = @identity
+        
+        assert @ipv6_address.send(:localhost?)
+        assert !@ipv6_address.respond_to?(:remote_host?)
       end
 
     end
