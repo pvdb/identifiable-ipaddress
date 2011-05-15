@@ -3,16 +3,6 @@ require 'helper'
 module TestIpaddress
   class TestIdentities < Test::Unit::TestCase
 
-    @@identities_hash = {
-      :foo => '123.234.234.123',
-      :bar => [
-        '4.3.2.1',
-        IPAddress('1.2.3.4')
-      ],
-      :blegga => '127.0.0.1/24',
-      :qux => IPAddress('192.168.0.0/24')
-    }.freeze
-
     context "IPAddress class" do
 
       should "respond to identity_for?" do
@@ -120,20 +110,25 @@ module TestIpaddress
       end
 
       should "work with Hashes" do
-        IPAddress.set_identities(@@identities_hash)
-        check_identities
+        IPAddress.set_identities({
+          :foo => '123.234.234.123',
+          :bar => [
+            '4.3.2.1',
+            IPAddress('1.2.3.4')
+          ],
+          :blegga => '127.0.0.1/24',
+          :qux => IPAddress('192.168.0.0/24')
+        })
+
+        assert_equal 'foo', IPAddress('123.234.234.123').identity
+        assert_equal 'bar', IPAddress('4.3.2.1').identity
+        assert_equal 'bar', IPAddress('1.2.3.4').identity
+        assert_equal 'blegga', IPAddress('127.0.0.1').identity
+        assert_equal 'blegga', IPAddress('127.0.0.254').identity
+        assert_equal 'qux', IPAddress('192.168.0.1').identity
+        assert_equal 'qux', IPAddress('192.168.0.254').identity
       end
-
-    end
-
-    def check_identities # "private" helper function...........
-      assert_equal 'foo', IPAddress('123.234.234.123').identity
-      assert_equal 'bar', IPAddress('4.3.2.1').identity
-      assert_equal 'bar', IPAddress('1.2.3.4').identity
-      assert_equal 'blegga', IPAddress('127.0.0.1').identity
-      assert_equal 'blegga', IPAddress('127.0.0.254').identity
-      assert_equal 'qux', IPAddress('192.168.0.1').identity
-      assert_equal 'qux', IPAddress('192.168.0.254').identity
+      
     end
 
   end # class TestIdentities
