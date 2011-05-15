@@ -8,7 +8,6 @@ module IPLookup
 
     # parsed application options...
     attr_reader :options
-    @options = nil
 
     def parse_options(argv, defaults = {})
       options = OpenStruct.new(defaults)
