@@ -11,5 +11,18 @@ module Identifiable
   def identity= identity
     IPAddress.set_identity self, identity
   end
+  
+  def respond_to?(symbol, include_private = false)
+    symbol.to_s[-1,1] == "?" || super
+  end
+  
+  def method_missing(symbol, *args)
+    # modeled after ActiveSupport::StringInquirer
+    if symbol.to_s[-1,1] == "?"
+      self.identity == symbol.to_s[0..-2]
+    else
+      super
+    end
+  end
 
 end # module Identifiable
