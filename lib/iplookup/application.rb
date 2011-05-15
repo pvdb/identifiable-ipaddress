@@ -21,7 +21,7 @@ module IPLookup
 
     def initialize(argv = [])
       @options = parse_options(argv, DEFAULT_OPTIONS)
-      IPAddress.set_identities(YAML.load_file @options.rc_file) if @options.rc_file
+      IPAddress.load_identities(@options.rc_file)
       return self
     end
 

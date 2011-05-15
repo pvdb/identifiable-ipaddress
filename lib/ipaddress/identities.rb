@@ -50,6 +50,12 @@ module Identities
           set_identity(ipaddress, identity)
         end
       end
+      
+      def load_identities identities_file
+        if identities_file && File.exists?(identities_file)
+          set_identities YAML.load_file identities_file
+        end
+      end
 
     end
 
