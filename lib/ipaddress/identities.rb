@@ -30,22 +30,19 @@ module Identities
         !get_identity(ipaddress).nil?
       end
 
+      def identifying_ipaddress_for address
+        address = to_ipaddress(address) # normalize the lookup key
+        @@ipaddress_identities.keys.find { |ipaddress| ipaddress.include? address }
+      end
+
       def get_identity ipaddress
-        @@ipaddress_identities[to_ipaddress(ipaddress).address]
+        @@ipaddress_identities[identifying_ipaddress_for(ipaddress)]
       end
 
       def set_identity(ipaddress, identity)
         [ipaddress].flatten.each do |single_ipaddress|
-          case (single_ipaddress = to_ipaddress(single_ipaddress))
-          when IPAddress::IPv4
-            # single_ipaddress == single address or entire subnet, ie. CIDR
-            single_ipaddress.each do |single_ipv4_address|
-              @@ipaddress_identities[single_ipv4_address.address] = identity.to_s
-            end
-          when IPAddress::IPv6
-            # TODO IP v6 subnets: https://github.com/bluemonk/ipaddress/pull/15
-            @@ipaddress_identities[ipaddress.address] = identity.to_s
-          end
+          single_ipaddress = to_ipaddress(single_ipaddress) # normalize the identity key
+          @@ipaddress_identities[single_ipaddress] = identity.to_s
         end
       end
 

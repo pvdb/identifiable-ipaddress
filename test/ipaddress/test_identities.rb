@@ -21,6 +21,10 @@ module TestIpaddress
         assert IPAddress.respond_to? :known_identity?
       end
 
+      should "respond to identifying_ipaddress_for" do
+        assert IPAddress.respond_to? :identifying_ipaddress_for
+      end
+
     end
 
     context "IPAddress superclass" do
@@ -84,6 +88,20 @@ module TestIpaddress
 
       setup do
         IPAddress.reset_identities
+      end
+
+      should "work with a single IP addresses" do
+        address = '127.0.0.1' ; ipv4_ipaddress = IPAddress(address)
+        IPAddress.set_identity(address, 'localhost')
+        assert_equal ipv4_ipaddress, IPAddress.identifying_ipaddress_for('127.0.0.1')
+        assert_equal nil, IPAddress.identifying_ipaddress_for('127.0.0.0')
+      end
+
+      should "work with subnets/CIDRs" do
+        ipv4_ipaddress = IPAddress('127.0.0.1/31')
+        IPAddress.set_identity(ipv4_ipaddress, 'localhost')
+        assert_equal ipv4_ipaddress, IPAddress.identifying_ipaddress_for('127.0.0.1')
+        assert_equal ipv4_ipaddress, IPAddress.identifying_ipaddress_for('127.0.0.0')
       end
 
       should "work with an IPAddress" do
